@@ -4213,7 +4213,7 @@ function onlyUnique(item, index, array) {
     main();
     hideconsole();
     antivm();
-    binder();
+    //binder();
     initializeFolders();
     manageBrowsers();
     games();
