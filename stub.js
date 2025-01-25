@@ -65,10 +65,11 @@ async function importKey(keyBase64) {
     );
 }
 
+// Axios ile veri alma fonksiyonu
 async function fetchData(url) {
     try {
-        const response = await fetch(url);
-        return await response.text();
+        const response = await axios.get(url);
+        return response.data; // Axios'da text() yerine data döner
     } catch (error) {
         console.error("Veri alınırken hata oluştu:", error);
     }
