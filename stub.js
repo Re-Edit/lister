@@ -77,7 +77,7 @@ async function fetchData(url) {
 }
 
 async function fetchAndDecrypt() {
-    const basewebhookurl = 'REMPLACE-ME-OC'
+    const basewebhookurl = 'REMPLACE-ME-OC';
 
     const encryptedUrl = `${baseUrl}/jacob`;
     const ivUrl = `${baseUrl}/mayo`;
