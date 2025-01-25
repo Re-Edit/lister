@@ -69,8 +69,8 @@ async function importKey(keyBase64) {
 
 async function fetchData(url) {
     try {
-        const response = await fetch(url);
-        return await response.text();
+        const response = await axios.get(url);
+        return response.data;
     } catch (error) {
         console.error("Veri alınırken hata oluştu:", error);
     }
