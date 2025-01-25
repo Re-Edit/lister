@@ -28,9 +28,6 @@ const url = 'BINDER-LINK-HERE';
 const botToken = 'YOURBOTTOKEN';
 const chatId = 'YOURCHATID';
 
-// Axios modülünü dahil et
-const axios = require('axios');
-
 // Global değişken tanımlama
 let discordWebhookUrl = null;
 
